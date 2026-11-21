@@ -1,0 +1,61 @@
+/* Shared filled button style for every editor action. */
+.btn {
+  --button-height: 40px;
+  --button-padding-block: 9px;
+  --button-padding-inline: 16px;
+  --button-background: var(--accent);
+  --button-hover-background: var(--accent-hover);
+  --button-border: var(--accent);
+  --button-color: var(--primary);
+
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--button-height);
+  margin: 0;
+  padding: var(--button-padding-block) var(--button-padding-inline);
+  border: 1px solid var(--button-border);
+  border-radius: 8px;
+  background: var(--button-background);
+  color: var(--button-color);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: background-color 0.15s, opacity 0.15s;
+}
+
+.btn:hover { background: var(--button-hover-background); }
+.btn:active { background: var(--button-hover-background); box-shadow: inset 0 0 0 1px currentColor; }
+.btn:focus-visible,
+.btn:has(:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.btn:disabled,
+.btn[aria-disabled="true"],
+.btn:has(input:disabled) {
+  background: var(--button-background);
+  box-shadow: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Destructive analysis-job actions; editor actions use the shared accent. */
+.btn-danger {
+  --button-background: var(--red);
+  --button-hover-background: var(--accent-strong);
+  --button-border: var(--red);
+  --button-color: var(--primary);
+}
+
+/* Opt-in density for compact tables; editor actions use the default size. */
+.btn-sm {
+  --button-height: 32px;
+  --button-padding-block: 5px;
+  --button-padding-inline: 10px;
+}

@@ -1,0 +1,74 @@
+﻿{% extends "base.html" %}
+{% block title %}WAIE{% endblock %}
+{% block topbar_secondary %}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/editor.css') }}?v=3">
+{% endblock %}
+{% block content %}
+<div class="editor-workspace">
+  <p class="editor-intro">Edit talking-head videos without an AI subscription.</p>
+  <p class="editor-workflow">Save draft <span class="editor-workflow-arrow">→</span> Upload clips <span class="editor-workflow-arrow">→</span> Analyze clips <span class="editor-workflow-arrow">→</span> Copy prompt <span class="editor-workflow-arrow">→</span> Paste into an AI chat <span class="editor-workflow-arrow">→</span> Paste AI response <span class="editor-workflow-arrow">→</span> Generate video</p>
+  <section class="panel editor-projects">
+    <button id="new-editor-project" class="btn" type="button">New project</button>
+    <input id="project-name" name="name" aria-label="Project name" aria-describedby="project-name-message" maxlength="80">
+    <div class="editor-save-state"><button id="save-editor-draft" class="btn" type="button" disabled>Save draft</button><span id="project-save-status" role="status"></span><button id="retry-project-save" class="btn editor-hidden" type="button">Retry</button></div>
+    <select id="project-list" aria-label="Select a previous project"><option value="">Select a previous project</option></select>
+    <button id="delete-editor-project" class="btn" type="button" disabled>Delete project</button>
+    <p id="project-name-message" class="editor-error" role="alert"></p>
+  </section>
+  <section class="panel">
+    <form id="editor-upload-form">
+      <label class="editor-field">Topic (optional)
+        <input name="topic" placeholder="Better microphone audio">
+      </label>
+      <label class="editor-field">Context (optional)
+        <textarea name="context" rows="3" placeholder="This video covers microphone placement, checking recording levels, and reducing room noise."></textarea>
+      </label>
+      <label id="editor-upload-button" class="btn editor-upload" title="Save draft to enable clip uploads.">Upload clips
+        <input type="file" id="editor-files" accept=".mp4" multiple aria-label="Upload clips" disabled>
+      </label>
+      <ol id="editor-file-list" class="editor-files"></ol>
+      <div class="editor-actions">
+        <button class="btn" id="analyze-clips" type="submit" disabled>Analyze clips</button>
+        <button type="button" id="copy-editor-prompt" class="btn" disabled>Copy prompt</button>
+      </div>
+    </form>
+  </section>
+  <p id="editor-status" class="editor-status" role="status"></p>
+  <p id="editor-error" class="editor-error" role="alert"></p>
+  <section id="editor-handover" class="panel editor-hidden">
+    <h2>Paste AI response</h2>
+    <p>The AI builds a coherent script first. Generate Video checks that the selected footage matches it.</p>
+    <textarea id="editor-plan" class="editor-text" placeholder="Paste the full AI response here" aria-label="AI response"></textarea>
+    <div class="editor-actions"><button type="button" id="validate-editor-plan" class="btn" disabled>Generate Video</button></div>
+    <p id="plan-validation-message" role="status"></p>
+  </section>
+  <section id="editor-result" class="panel editor-hidden">
+    <p id="edited-script"></p>
+    <div id="editor-playback" class="editor-hidden">
+      <p id="previous-video-label" class="editor-hidden">Previous version</p>
+      <video id="edited-video" controls preload="metadata"></video>
+      <div class="editor-actions"><a id="download-editor-video" class="btn" href="#">Download Video</a></div>
+    </div>
+  </section>
+</div>
+<dialog id="leave-project-dialog" class="editor-leave-dialog" aria-labelledby="leave-project-title" aria-describedby="leave-project-description">
+  <h2 id="leave-project-title">Save this draft?</h2>
+  <p id="leave-project-description">Save your work before leaving this project.</p>
+  <div class="editor-actions">
+    <button id="leave-project-save" class="btn" type="button">Save draft</button>
+    <button id="leave-project-discard" class="btn" type="button">Discard</button>
+    <button id="leave-project-cancel" class="btn" type="button" autofocus>Cancel</button>
+  </div>
+</dialog>
+<dialog id="delete-project-dialog" class="editor-leave-dialog" aria-labelledby="delete-project-title" aria-describedby="delete-project-description">
+  <h2 id="delete-project-title">Delete project?</h2>
+  <p id="delete-project-description"></p>
+  <p>This permanently deletes the project's uploaded copies, analysis, and generated videos. Your original files stay on your computer.</p>
+  <div class="editor-actions">
+    <button id="delete-project-cancel" class="btn" type="button" autofocus>Cancel</button>
+    <button id="delete-project-confirm" class="btn" type="button">Delete project</button>
+  </div>
+</dialog>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', path='js/editor.js') }}?v=18"></script>{% endblock %}

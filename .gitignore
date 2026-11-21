@@ -1,0 +1,65 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build and packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+.python-version
+
+# Test and tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.release-tools/
+
+# Local outputs
+output/
+models/
+samples/
+*.log
+.removed-projects/
+github-ready/
+release/
+
+# Credentials, machine settings, and local environment snapshots
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.aws/
+.codex
+.codex/
+.agents/
+.vscode/
+.idea/
+requirements-installed.txt
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+
+# Local media inputs
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.wav
+*.mp3
+*.flac
+
+# Windows alternate data streams copied into WSL
+*:Zone.Identifier
+*Zone.Identifier*
+

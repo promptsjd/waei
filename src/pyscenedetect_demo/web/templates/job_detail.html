@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}{{ job.video_name }} · WAIE{% endblock %}
+
+{% block head %}
+<script>
+  window.JOB_ID = {{ job.id | tojson }};
+  window.JOB_STATUS = {{ job.status | tojson }};
+  window.JOB_TYPE = {{ (job.job_type or 'analyze') | tojson }};
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="job-detail" data-job-id="{{ job.id }}">
+
+  {# ---- Header ---- #}
+  <div class="hero hero-sm">
+    {% if (job.job_type or 'analyze') == 'shotlist' %}
+      <div class="eyebrow">Shot list</div>
+    {% else %}
+      <div class="eyebrow">Analysis jobs</div>
+    {% endif %}
+    <h1>{{ job.video_name }}</h1>
+    <div class="hero-meta">
+      <span class="badge badge-{{ job.status }}">{{ _status_label(job.status) }}</span>
+      <span>Created {{ job.created_at[:19] if job.created_at else '-' }}</span>
+      {% if job.started_at %}<span>Started {{ job.started_at[:19] }}</span>{% endif %}
+      {% if job.completed_at %}<span>Finished {{ job.completed_at[:19] }}</span>{% endif %}
+    </div>
+
+    {% if job.error %}
+    <div class="alert alert-error">
+      <strong>Error:</strong> {{ job.error }}
+    </div>
+    {% endif %}
+
+    <div class="config-tags">
+      <span class="tag">Detector: {{ job.config.detector }}</span>
+      <span class="tag">Threshold: {{ job.config.threshold }}</span>
+      <span class="tag">Minimum scene length: {{ job.config.min_scene_len_seconds }} s</span>
+      {% if (job.job_type or 'analyze') != 'shotlist' %}
+        {% if job.config.transcribe %}<span class="tag">Transcription: {{ job.config.asr_model }}</span>{% else %}<span class="tag tag-off">Transcription off</span>{% endif %}
+        {% if job.config.describe_visuals %}<span class="tag">Visual descriptions: enabled</span>{% else %}<span class="tag tag-off">Visual descriptions off</span>{% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+  {# ---- Progress (running) ---- #}
+  <div id="progress-section" class="panel {% if job.status != 'running' %}hidden{% endif %}">
+    <h2 class="panel-title">Progress</h2>
+    <div class="progress-bar-wrap">
+      <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+    </div>
+    <p id="progress-label" class="progress-label">Preparing...</p>
+  </div>
+
+  {# ---- Results (completed) ---- #}
+  <div id="results-section" class="{% if job.status != 'completed' %}hidden{% endif %}">
+    <div class="action-bar">
+      {% if (job.job_type or 'analyze') == 'shotlist' %}
+        <button id="btn-regenerate" class="btn">Rebuild shot list</button>
+      {% else %}
+        <button id="btn-regenerate" class="btn">Rebuild report</button>
+        {% if not job.config.describe_visuals %}
+        <button id="btn-enrich" class="btn">Add visual descriptions</button>
+        {% endif %}
+      {% endif %}
+      <span id="action-status"></span>
+    </div>
+
+    {% if (job.job_type or 'analyze') == 'shotlist' %}
+    <div id="shotlist-container">
+      <p class="loading-hint">Loading shots...</p>
+    </div>
+    {% else %}
+    <div id="scene-list" class="scene-list">
+      <p class="loading-hint">Loading scenes...</p>
+    </div>
+    {% endif %}
+  </div>
+
+  {# ---- Pending ---- #}
+  {% if job.status == 'pending' %}
+  <div class="panel">
+    <p>This job has not started yet.</p>
+    <button id="btn-start" class="btn">
+      {% if (job.job_type or 'analyze') == 'shotlist' %}Generate shot list{% else %}Start analysis{% endif %}
+    </button>
+  </div>
+  {% endif %}
+
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='js/job-detail.js') }}"></script>
+{% endblock %}

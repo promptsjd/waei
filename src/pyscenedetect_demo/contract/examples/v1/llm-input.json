@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "input_id": "demo-analysis-v1",
+  "analysis_complete": true,
+  "duration_ms": 22000,
+  "brief": {
+    "goal": "Create a concise explanation of how to improve talking-head audio. Keep the advice and the important limitation.",
+    "audience": "Beginner video creators",
+    "style": "balanced",
+    "allow_reorder": false,
+    "target_duration_ms": 15000,
+    "duration_tolerance_ms": 1000,
+    "required_unit_ids": ["u006"]
+  },
+  "units": [
+    {"id": "u001", "start_ms": 0, "end_ms": 2000, "kind": "speech", "text": "Um, so, let me start that again.", "speaker": "speaker_1", "speech_confidence": null, "boundary_quality": "candidate", "visual_description": "Seated presenter facing the camera."},
+    {"id": "u002", "start_ms": 2000, "end_ms": 6000, "kind": "speech", "text": "Good audio makes a talking-head video easier to watch.", "speaker": "speaker_1", "speech_confidence": null, "boundary_quality": "candidate", "visual_description": "Seated presenter facing the camera."},
+    {"id": "u003", "start_ms": 6000, "end_ms": 9000, "kind": "silence", "text": "", "speaker": null, "speech_confidence": null, "boundary_quality": "candidate", "visual_description": "Presenter waits silently."},
+    {"id": "u004", "start_ms": 9000, "end_ms": 13000, "kind": "speech", "text": "Place the microphone close enough to hear your voice clearly.", "speaker": "speaker_1", "speech_confidence": null, "boundary_quality": "candidate", "visual_description": "Presenter speaks while pointing at a desk microphone."},
+    {"id": "u005", "start_ms": 13000, "end_ms": 17000, "kind": "speech", "text": "Record a short test and listen before filming the full video.", "speaker": "speaker_1", "speech_confidence": null, "boundary_quality": "candidate", "visual_description": "Presenter gestures towards headphones on the desk."},
+    {"id": "u006", "start_ms": 17000, "end_ms": 20000, "kind": "speech", "text": "A better microphone will not fix a very noisy room.", "speaker": "speaker_1", "speech_confidence": null, "boundary_quality": "candidate", "visual_description": "Presenter addresses the camera."},
+    {"id": "u007", "start_ms": 20000, "end_ms": 22000, "kind": "speech", "text": "Anyway, I need to charge my phone.", "speaker": "speaker_1", "speech_confidence": null, "boundary_quality": "candidate", "visual_description": "Presenter looks at a phone."}
+  ]
+}

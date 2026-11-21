@@ -1,0 +1,76 @@
+{
+  "words": [
+    {
+      "word": "Um,",
+      "start": 0.3,
+      "end": 0.6,
+      "probability": 0.8
+    },
+    {
+      "word": " Hello",
+      "start": 0.8,
+      "end": 1.1,
+      "probability": 0.9
+    },
+    {
+      "word": " there.",
+      "start": 1.1,
+      "end": 1.6,
+      "probability": 0.9
+    },
+    {
+      "word": " Goodbye.",
+      "start": 2.5,
+      "end": 3.1,
+      "probability": 0.9
+    }
+  ],
+  "duration_ms": 4000,
+  "units": [
+    {
+      "start_ms": 0,
+      "end_ms": 740,
+      "kind": "speech",
+      "text": "Um,",
+      "speaker": null,
+      "speech_confidence": 0.8,
+      "boundary_quality": "candidate"
+    },
+    {
+      "start_ms": 740,
+      "end_ms": 1700,
+      "kind": "speech",
+      "text": "Hello there.",
+      "speaker": null,
+      "speech_confidence": 0.9,
+      "boundary_quality": "candidate"
+    },
+    {
+      "start_ms": 1700,
+      "end_ms": 2440,
+      "kind": "silence",
+      "text": "",
+      "speaker": null,
+      "speech_confidence": null,
+      "boundary_quality": "candidate"
+    },
+    {
+      "start_ms": 2440,
+      "end_ms": 3200,
+      "kind": "speech",
+      "text": "Goodbye.",
+      "speaker": null,
+      "speech_confidence": 0.9,
+      "boundary_quality": "candidate"
+    },
+    {
+      "start_ms": 3200,
+      "end_ms": 4000,
+      "kind": "silence",
+      "text": "",
+      "speaker": null,
+      "speech_confidence": null,
+      "boundary_quality": "candidate"
+    }
+  ]
+}

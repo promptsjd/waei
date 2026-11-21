@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "input_id": "demo-analysis-v1",
+  "status": "needs_review",
+  "summary": "Keep the introduction, two practical audio tips, and the noisy-room limitation. Remove the restart, long pause, and unrelated phone comment. Review the cut across the removed pause.",
+  "sequence": [
+    {"unit_ids": ["u002"], "reason": "Introduce the importance of clear audio."},
+    {"unit_ids": ["u004", "u005", "u006"], "reason": "Keep the practical steps and the limitation without changing their meaning."}
+  ],
+  "removed": [
+    {"unit_id": "u001", "reason_code": "false_start", "reason": "Abandoned opening before the complete introduction."},
+    {"unit_id": "u003", "reason_code": "excessive_pause", "reason": "Three seconds of silence between the introduction and advice."},
+    {"unit_id": "u007", "reason_code": "off_topic", "reason": "Phone charging is unrelated to the audio advice."}
+  ],
+  "joins": [
+    {"from_index": 0, "to_index": 1, "transition": "cut", "review_required": true, "note": "The advice follows the introduction logically, but the described hand-position change could produce a visible jump cut."}
+  ],
+  "review_items": [
+    {"unit_ids": ["u002", "u004"], "issue_code": "join_risk", "note": "Preview the connection after the silent pause is removed. The scene descriptions cannot establish visual continuity."}
+  ]
+}

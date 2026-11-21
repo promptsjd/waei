@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}WAIE{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='css/app.css') }}?v=7">
+  <link rel="stylesheet" href="{{ url_for('static', path='css/buttons.css') }}?v=4">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <nav class="topbar">
+    <a href="/" class="topbar-brand">WAIE</a>
+    {% block topbar_secondary %}
+      {% if request.app.state.settings.enable_editor %}<a href="/editor" style="color: var(--header-ink); margin-left: auto;">Talking-head editor</a>{% endif %}
+      <span class="topbar-tagline">Local video storyboard tool</span>
+    {% endblock %}
+  </nav>
+  <main class="page">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="app-footer">
+    <nav class="app-footer-links" aria-label="Feedback and source code">
+      <a id="send-feedback" class="app-footer-link" href="mailto:promptsmithjd@gmail.com?subject=WAIE%20feedback" aria-haspopup="dialog">Send feedback</a>
+      <a class="app-footer-link" href="https://github.com/promptsjd/waei" target="_blank" rel="noopener noreferrer">Repo</a>
+    </nav>
+  </footer>
+  <dialog id="feedback-dialog" class="feedback-dialog" aria-labelledby="feedback-title" aria-describedby="feedback-description">
+    <h2 id="feedback-title">Send feedback</h2>
+    <p id="feedback-description">Email your feedback to the address below. If your email app doesn't open, copy the address into your preferred email service.</p>
+    <input id="feedback-email" class="feedback-email" type="text" value="promptsmithjd@gmail.com" readonly aria-label="Feedback email address">
+    <div class="feedback-actions">
+      <button id="copy-feedback-email" class="app-footer-link feedback-action" type="button">Copy email address</button>
+      <a class="app-footer-link" href="mailto:promptsmithjd@gmail.com?subject=WAIE%20feedback">Open email app</a>
+      <button id="close-feedback" class="app-footer-link feedback-action" type="button" autofocus>Close</button>
+    </div>
+    <p id="feedback-copy-status" role="status"></p>
+  </dialog>
+  <script src="{{ url_for('static', path='js/app.js') }}?v=2"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

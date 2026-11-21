@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Talking-head edit selection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "input_id",
+    "sequence",
+    "removed_unit_ids"
+  ],
+  "properties": {
+    "version": {
+      "const": "2.0"
+    },
+    "input_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "script": {
+      "type": "string",
+      "description": "Intended spoken script, verbatim from retained units in playback order. Include for new responses; optional for compatibility with saved selections."
+    },
+    "sequence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "unit_ids"
+        ],
+        "properties": {
+          "unit_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "removed_unit_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

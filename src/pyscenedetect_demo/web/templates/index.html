@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}WAIE · Home{% endblock %}
+
+{% block content %}
+<div class="home-layout">
+  <div class="home-left">
+    <section class="panel">
+      <h2 class="panel-title">Upload video</h2>
+      <div id="drop-zone" class="drop-zone">
+        <div class="drop-zone-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <p class="drop-zone-text">Drop an MP4 here, or click to choose a file</p>
+        <input type="file" id="file-input" accept=".mp4" hidden>
+      </div>
+      <div id="file-info" class="file-info hidden">
+        <span id="file-name"></span>
+        <span id="file-size"></span>
+      </div>
+
+      <form id="config-form" class="config-form hidden">
+        <div class="mode-tabs">
+          <label class="mode-tab">
+            <input type="radio" name="_mode" value="analyze" checked>
+            <span class="mode-tab-label">Full analysis</span>
+          </label>
+          <label class="mode-tab">
+            <input type="radio" name="_mode" value="shotlist">
+            <span class="mode-tab-label">Shot list</span>
+          </label>
+        </div>
+
+        <div class="config-grid">
+          <label class="field">
+            <span class="field-label">Detector</span>
+            <select name="detector" class="field-input">
+              <option value="content">Content (scene changes)</option>
+              <option value="adaptive">Adaptive</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field-label">Threshold</span>
+            <input name="threshold" type="number" value="{{ defaults.detection.threshold }}" step="0.1" min="0.1" class="field-input">
+          </label>
+          <label class="field">
+            <span class="field-label">Minimum scene length (seconds)</span>
+            <input name="min_scene_len" type="number" value="{{ defaults.detection.min_scene_len_seconds }}" step="0.1" min="0.1" class="field-input">
+          </label>
+        </div>
+
+        <div id="analyze-fields">
+          <div class="config-grid">
+            <label class="field field-checkbox">
+              <input type="checkbox" name="transcribe" id="opt-transcribe">
+              <span class="field-label">Speech transcription</span>
+            </label>
+            <label class="field">
+              <span class="field-label">Transcription model</span>
+              <select name="asr_model" class="field-input">
+                <option value="tiny">tiny</option>
+                <option value="base">base</option>
+                <option value="small">small</option>
+                <option value="medium">medium</option>
+                <option value="large-v3">large-v3</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field-label">Language (optional)</span>
+              <input name="language" type="text" class="field-input" placeholder="auto">
+            </label>
+          </div>
+
+          <div class="config-grid">
+            <label class="field field-checkbox">
+              <input type="checkbox" name="describe_visuals" id="opt-describe" checked>
+              <span class="field-label">Visual descriptions (local Florence-2 on CPU)</span>
+            </label>
+            <label class="field">
+              <span class="field-label">Vision model</span>
+              <input name="vision_model" type="text" value="{{ defaults.models.vision_model }}" class="field-input">
+            </label>
+          </div>
+        </div>
+
+        <input type="hidden" name="mode" value="analyze">
+
+        <button type="submit" id="submit-btn" class="btn" disabled>Start analysis</button>
+        <progress id="upload-progress" class="upload-progress hidden" value="0" max="100"></progress>
+      </form>
+    </section>
+  </div>
+
+  <div class="home-right">
+    <section class="panel">
+      <h2 class="panel-title">Analysis jobs</h2>
+      {% if jobs %}
+      <div class="job-table-wrap">
+        <table class="job-table" id="job-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Video</th>
+              <th>Results</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for job in jobs %}
+            <tr data-job-id="{{ job.id }}">
+              <td>{% if job.job_type == 'shotlist' %}Shot list{% else %}Analysis{% endif %}</td>
+              <td><span class="badge badge-{{ job.status }}">{{ _status_label(job.status) }}</span></td>
+              <td class="td-name" title="{{ job.video_name }}">{{ job.video_name }}</td>
+              <td>{{ job.shot_count or job.scene_count or '-' }}</td>
+              <td class="td-time">{{ job.created_at[:19] if job.created_at else '-' }}</td>
+              <td class="td-actions">
+                <a href="/jobs/{{ job.id }}" class="btn btn-sm">View</a>
+                <button class="btn btn-sm btn-danger btn-delete" data-job-id="{{ job.id }}">Delete</button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="empty-hint">Upload an MP4 to start your first analysis.</p>
+      {% endif %}
+    </section>
+  </div>
+</div>
+{% endblock %}

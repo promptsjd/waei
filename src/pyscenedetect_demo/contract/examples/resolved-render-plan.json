@@ -1,0 +1,54 @@
+{
+  "version": "2.0",
+  "input_id": "demo-analysis-v2",
+  "status": "needs_review",
+  "render_allowed": false,
+  "duration_ms": 15000,
+  "removed_duration_ms": 7000,
+  "script": "Good audio makes a talking-head video easier to watch. Place the microphone close enough to hear your voice clearly. Record a short test and listen before filming the full video. A better microphone will not fix a very noisy room.",
+  "timeline": [
+    {
+      "run_index": 0,
+      "unit_ids": [
+        "u002"
+      ],
+      "asset_id": "asset_A",
+      "in_ms": 2000,
+      "out_ms": 6000,
+      "output_in_ms": 0,
+      "output_out_ms": 4000
+    },
+    {
+      "run_index": 1,
+      "unit_ids": [
+        "u004",
+        "u005",
+        "u006"
+      ],
+      "asset_id": "asset_B",
+      "in_ms": 0,
+      "out_ms": 11000,
+      "output_in_ms": 4000,
+      "output_out_ms": 15000
+    }
+  ],
+  "joins": [
+    {
+      "from_index": 0,
+      "to_index": 1,
+      "transition": "cut",
+      "review_required": true,
+      "note": "Preview this connection between selected source ranges."
+    }
+  ],
+  "review_items": [
+    {
+      "unit_ids": [
+        "u002",
+        "u004"
+      ],
+      "issue_code": "join_risk",
+      "note": "Preview this connection between selected source ranges."
+    }
+  ]
+}

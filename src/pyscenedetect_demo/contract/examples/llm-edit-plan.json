@@ -1,0 +1,23 @@
+{
+  "version": "2.0",
+  "input_id": "demo-analysis-v2",
+  "sequence": [
+    {
+      "unit_ids": [
+        "u002"
+      ]
+    },
+    {
+      "unit_ids": [
+        "u004",
+        "u005",
+        "u006"
+      ]
+    }
+  ],
+  "removed_unit_ids": [
+    "u001",
+    "u003",
+    "u007"
+  ]
+}
