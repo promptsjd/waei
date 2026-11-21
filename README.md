@@ -135,18 +135,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for setup/checks,
 [CHANGELOG.md](CHANGELOG.md) for changes, and
 [docs/RELEASING.md](docs/RELEASING.md) for a clean source upload.
 
-## Credits and feedback
-
-WAIE builds on [seki2020/scene-scribe](https://github.com/seki2020/scene-scribe),
-base commit `e84d871387979918793537579412683039a1b11d`. The engine package
-`pyscenedetect_demo`, `scene-*` commands and `SCENE_SCRIBE_*` settings retain their
-names for compatibility. App and AI contract versions are separate.
-
-The intended WAIE license is MIT, pending engine permission. No license for the
-combined codebase is granted by this README. See [license status](LICENSE_STATUS.md)
-and [third-party notices](THIRD_PARTY_NOTICES.md).
-
-**Send feedback** opens a dialog with the address, **Copy email address** and
-**Open email app**. You can also email
-[promptsmithjd@gmail.com](mailto:promptsmithjd@gmail.com). **Repo** opens
-[promptsjd/waei](https://github.com/promptsjd/waei).
